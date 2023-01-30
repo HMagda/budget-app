@@ -1,0 +1,24 @@
+{
+  "categorized-expense": [
+    {
+      "cost": "100",
+      "category": "food",
+      "id": 1
+    },
+    {
+      "cost": "550",
+      "category": "travel",
+      "id": 2
+    },
+    {
+      "cost": "700",
+      "category": "car",
+      "id": 3
+    },
+    {
+      "cost": "400",
+      "category": "travel",
+      "id": 4
+    }
+  ]
+}

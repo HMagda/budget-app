@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700');
+$font-family: "Poppins", sans-serif;
+
+$color-light: #fbf5f3cc;
+$color-dark: #1E152A;
+$color-success: #57A773;
+$color-warning: #f1bc2a;
+$color-error: #DB222A;
+$color-important: #08B2E3;
+
+@mixin respond-large {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin respond-medium {
+  @media (max-width: 1023px) and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin respond-small {
+  @media (max-width: 767px) {
+    @content;
+  }
+}
