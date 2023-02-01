@@ -43,17 +43,21 @@ const App = () => {
             };
           }),
         };
+
         setter(formattedChartData);
       });
   };
 
   useEffect(() => {
     const doughnutChartStyle = new GraphStyle('Cost', 0, '', [
-      'black',
-      'red',
-      'green',
-      'pink',
-      'blue',
+      '#E69F00',
+      '#56B4E9',
+      '#009E73',
+      '#F0E442',
+      '#0072B2',
+      '#D55E00',
+      '#CC79A7',
+      '#5D1E9A',
     ]);
     updateChart(
       setFormattedDoughnutChartData,

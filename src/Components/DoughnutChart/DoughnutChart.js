@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import './DoughnutChart.modules.scss';
@@ -8,6 +8,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const DoughnutChart = ({formattedDoughnutChartData}) => {
   const [cost, setCost] = useState('');
   const [category, setCategory] = useState('');
+  const [isActive, setActive] = useState(true);
+
+  useEffect(() => {
+    setActive(formattedDoughnutChartData.labels.length < 8);
+  }, [formattedDoughnutChartData.labels.length]);
 
   const handleExpenseSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +40,7 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
   };
 
   return (
-    <div>
+    <div className='categories-section-wrapper'>
       <div className='doughnut-chart-container'>
         <Doughnut
           data={formattedDoughnutChartData}
@@ -43,9 +48,13 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
             plugins: {
               legend: {
                 display: true,
-                position: 'right',
+                position: 'left',
                 labels: {
-                  color: 'black',
+                  color: '#fbf5f3cc',
+                  font: {
+                    size: 14,
+                    family: 'Poppins, sans-serif',
+                  },
                 },
               },
             },
@@ -56,19 +65,30 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
       <div className='add-categories'>
         <h2>Add New Expense</h2>
         <form onSubmit={handleExpenseSubmit}>
-          <label>Cost:</label>
-          <textarea
+          <label htmlFor='new-cost'>Cost:</label>
+          <input
+            type='number'
+            id='new-cost'
             required
             value={cost}
             onChange={(e) => setCost(e.target.value)}
-          ></textarea>
-          <label>Category:</label>
-          <textarea
+          ></input>
+          <label htmlFor='new-category'>Category:</label>
+          <input
+            type='text'
+            id='new-category'
             required
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-          ></textarea>
-          <button type='submit'>Add Expense</button>
+          ></input>
+          <button type='submit' disabled={!isActive}>
+            Add Expense
+          </button>
+          {!isActive && (
+            <p className='warning-text'>
+              You can add up to 8 different categories
+            </p>
+          )}
         </form>
       </div>
     </div>

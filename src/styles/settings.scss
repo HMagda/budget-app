@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700');
-$font-family: "Poppins", sans-serif;
+$font-family: 'Poppins', sans-serif;
 
 $color-light: #fbf5f3cc;
-$color-dark: #1E152A;
-$color-success: #57A773;
+$color-dark: #1e152a;
+$color-success: #57a773;
 $color-warning: #f1bc2a;
-$color-error: #DB222A;
-$color-important: #08B2E3;
+$color-error: #db222a;
+$color-important: #08b2e3;
 
 @mixin respond-large {
   @media (max-width: 1024px) {

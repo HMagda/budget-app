@@ -1,15 +1,35 @@
-.doughnut-chart-container {
-  height: 500px;
-  width: 500px;
-}
+@import '../../styles/settings.scss';
 
-h2 {
-  text-align: center;
-}
-
-form {
+.categories-section-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+
+  .doughnut-chart-container {
+    width: 35rem;
+  }
+
+  .add-categories {
+    padding: 1rem;
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      input {
+        margin-bottom: 0.5rem;
+      }
+
+      .warning-text {
+        color: $color-warning;
+        font-family: $font-family;
+      }
+    }
+  }
 }

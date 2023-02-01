@@ -1,23 +1,19 @@
 @import '../../styles/settings.scss';
 
 .summary-card {
-  width: 31rem;
-  height: 20rem;
+  width: 35rem;
+  height: 17rem;
   background: radial-gradient(
     140% 140% at 0% 0%,
     rgba(255, 255, 255, 0.4) 0,
     rgba(255, 255, 255, 0) 100%
   );
   margin: 0 auto;
-  padding: 3rem;
+  padding: 1rem;
   border-top: 1px solid rgb(0, 0, 0);
   border-left: 1px solid rgb(0, 0, 0);
   border-radius: 2rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3);
-  h1,
-  h2 {
-    color: $color-light;
-  }
 
   h1 {
     text-align: center;
