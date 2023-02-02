@@ -3,6 +3,8 @@ import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import './DoughnutChart.modules.scss';
 
+import ChartForm from '../ChartForm/ChartForm';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = ({formattedDoughnutChartData}) => {
@@ -16,7 +18,7 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
     setActive(formattedDoughnutChartData.labels.length < 8);
   }, [formattedDoughnutChartData.labels.length]);
 
-  const handleExpenseSubmit = (e) => {
+  const handleCategorySubmit = (e) => {
     e.preventDefault();
 
     fetch('http://localhost:5000/categorized-expense/', {
@@ -39,7 +41,7 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
     setCategory('');
   };
 
-  const handleEdit = (e) => {
+  const handleCategoryEdit = (e) => {
     e.preventDefault();
 
     function editData(chart, label, data) {
@@ -48,7 +50,11 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
       if (indexOfLabel !== -1) {
         formattedDoughnutChartData.labels.splice(indexOfLabel, 1, label);
 
-        formattedDoughnutChartData.datasets[0].data.splice(indexOfLabel, 1, data);
+        formattedDoughnutChartData.datasets[0].data.splice(
+          indexOfLabel,
+          1,
+          data
+        );
 
         const objId = indexOfLabel + 1;
 
@@ -91,69 +97,56 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
         />
       </div>
 
-      <div className='add-categories'>
-        <h2>ADD New Expense</h2>
-        <form onSubmit={handleExpenseSubmit}>
-          <label htmlFor='new-cost'>Cost:</label>
-          <input
-            type='number'
-            id='new-cost'
-            required
-            value={cost}
-            onChange={(e) => setCost(e.target.value)}
-          ></input>
-          <label htmlFor='new-category'>Category:</label>
-          <input
-            type='text'
-            id='new-category'
-            required
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          ></input>
-          <button type='submit' disabled={!isActive}>
-            ADD Expense
-          </button>
-          {!isActive && (
-            <p className='warning-text'>
-              You can add up to 8 different categories
-            </p>
-          )}
-        </form>
-      </div>
+      <ChartForm
+        actionHandler={handleCategorySubmit}
+        header={'ADD New Expense'}
+        cost={cost}
+        setCost={setCost}
+      >
+        <input
+          type='text'
+          id='category'
+          required
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        ></input>
+        <button type='submit' disabled={!isActive}>
+          ADD Expense
+        </button>
+        {!isActive && (
+          <p className='warning-text'>
+            You can add up to 8 different categories
+          </p>
+        )}
+      </ChartForm>
 
-      <div className='edit-categories'>
-        <h2>EDIT Expense</h2>
-        <form onSubmit={handleEdit}>
-          <label htmlFor='edited-cost'>Cost:</label>
-          <input
-            type='number'
-            id='edited-cost'
-            required
-            value={cost}
-            onChange={(e) => setCost(e.target.value)}
-          ></input>
-          <label htmlFor='category'>Category:</label>
-          <select
-            id='edited-category'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option disabled className='instruction'>
-              Click to choose
-            </option>
-            <option hidden>Click to choose</option>
+      <ChartForm
+        actionHandler={handleCategoryEdit}
+        header={'EDIT Expense'}
+        cost={cost}
+        setCost={setCost}
+      >
+        <select
+          id='category'
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option disabled className='instruction'>
+            Click to choose
+          </option>
+          <option hidden>--Click to choose--</option>
 
-            {formattedDoughnutChartData.labels.map((label) => {
-              return (
-                <option key={label} value={label}>
-                  {label}
-                </option>
-              );
-            })}
-          </select>
-          <button type='submit'>EDIT Expense</button>
-        </form>
-      </div>
+          {formattedDoughnutChartData.labels.map((label) => {
+            return (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            );
+          })}
+        </select>
+        <button type='submit'>EDIT Expense</button>
+      </ChartForm>
+
     </div>
   );
 };
