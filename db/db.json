@@ -1,23 +1,23 @@
 {
   "categorized-expense": [
     {
-      "cost": "100",
-      "category": "food",
+      "cost": "170",
+      "category": "clothes",
       "id": 1
     },
     {
-      "cost": "550",
-      "category": "travel",
+      "cost": "150",
+      "category": "media",
       "id": 2
     },
     {
-      "cost": "700",
+      "cost": "333",
       "category": "car",
       "id": 3
     },
     {
-      "cost": "400",
-      "category": "clothes",
+      "cost": "550",
+      "category": "travel",
       "id": 4
     }
   ]

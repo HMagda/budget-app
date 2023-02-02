@@ -10,30 +10,59 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
   const [category, setCategory] = useState('');
   const [isActive, setActive] = useState(true);
 
+  const expense = {cost, category};
+
   useEffect(() => {
     setActive(formattedDoughnutChartData.labels.length < 8);
   }, [formattedDoughnutChartData.labels.length]);
 
   const handleExpenseSubmit = (e) => {
     e.preventDefault();
-    const expense = {cost, category};
 
     fetch('http://localhost:5000/categorized-expense/', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(expense),
     }).then(() => {
-      console.log('new income added');
+      console.log('new EXPENSE added');
     });
 
     function addData(chart, label, data) {
       formattedDoughnutChartData.labels.push(label);
-      formattedDoughnutChartData.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-      });
+
+      formattedDoughnutChartData.datasets[0].data.push(data);
     }
 
     addData(DoughnutChart, category, cost);
+
+    setCost('');
+    setCategory('');
+  };
+
+  const handleEdit = (e) => {
+    e.preventDefault();
+
+    function editData(chart, label, data) {
+      const indexOfLabel = formattedDoughnutChartData.labels.indexOf(label);
+
+      if (indexOfLabel !== -1) {
+        formattedDoughnutChartData.labels.splice(indexOfLabel, 1, label);
+
+        formattedDoughnutChartData.datasets[0].data.splice(indexOfLabel, 1, data);
+
+        const objId = indexOfLabel + 1;
+
+        fetch(`http://localhost:5000/categorized-expense/${objId}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(expense),
+        }).then(() => {
+          console.log('CATEGORY EDITED');
+        });
+      }
+    }
+
+    editData(DoughnutChart, category, cost);
 
     setCost('');
     setCategory('');
@@ -63,7 +92,7 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
       </div>
 
       <div className='add-categories'>
-        <h2>Add New Expense</h2>
+        <h2>ADD New Expense</h2>
         <form onSubmit={handleExpenseSubmit}>
           <label htmlFor='new-cost'>Cost:</label>
           <input
@@ -82,13 +111,47 @@ const DoughnutChart = ({formattedDoughnutChartData}) => {
             onChange={(e) => setCategory(e.target.value)}
           ></input>
           <button type='submit' disabled={!isActive}>
-            Add Expense
+            ADD Expense
           </button>
           {!isActive && (
             <p className='warning-text'>
               You can add up to 8 different categories
             </p>
           )}
+        </form>
+      </div>
+
+      <div className='edit-categories'>
+        <h2>EDIT Expense</h2>
+        <form onSubmit={handleEdit}>
+          <label htmlFor='edited-cost'>Cost:</label>
+          <input
+            type='number'
+            id='edited-cost'
+            required
+            value={cost}
+            onChange={(e) => setCost(e.target.value)}
+          ></input>
+          <label htmlFor='category'>Category:</label>
+          <select
+            id='edited-category'
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option disabled className='instruction'>
+              Click to choose
+            </option>
+            <option hidden>Click to choose</option>
+
+            {formattedDoughnutChartData.labels.map((label) => {
+              return (
+                <option key={label} value={label}>
+                  {label}
+                </option>
+              );
+            })}
+          </select>
+          <button type='submit'>EDIT Expense</button>
         </form>
       </div>
     </div>

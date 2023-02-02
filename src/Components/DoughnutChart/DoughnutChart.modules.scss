@@ -7,6 +7,7 @@
 
   .doughnut-chart-container {
     width: 35rem;
+    height: 35rem;
   }
 
   .add-categories {
@@ -23,12 +24,41 @@
       flex-direction: column;
 
       input {
+        margin-top: 0.5rem;
         margin-bottom: 0.5rem;
+        font-family: $font-family;
       }
 
       .warning-text {
         color: $color-warning;
         font-family: $font-family;
+      }
+    }
+  }
+
+  .edit-categories {
+    padding: 1rem;
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      input,
+      select {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-family: $font-family;
+      }
+
+      #edited-category {
+        width: 100%;
+        text-align: center;
       }
     }
   }
