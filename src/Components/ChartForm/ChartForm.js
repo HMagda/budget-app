@@ -11,6 +11,7 @@ const ChartForm = ({actionHandler, setCost, header, cost, children}) => {
           type='number'
           id='cost'
           required
+          min="1"
           value={cost}
           onChange={(e) => setCost(e.target.value)}
         ></input>

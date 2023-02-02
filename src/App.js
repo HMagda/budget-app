@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import 'normalize.css';
+
 import './styles/global.scss';
 import SummaryCard from './Components/SummaryCard/SummaryCard';
 import DoughnutChart from './Components/DoughnutChart/DoughnutChart';
@@ -14,10 +15,10 @@ const GraphStyle = class {
 };
 
 const App = () => {
-  const [formattedDoughnutChartData, setFormattedDoughnutChartData] =
-    useState(null);
+  const [rawDoughnutChartData, setRawDoughnutChartData] = useState(null);
+  const [formattedDoughnutChartData, setFormattedDoughnutChartData] = useState(null);
 
-  const updateChart = (setter, keyword, xname, yname, style) => {
+  const updateChart = (setter, second_setter, keyword, xname, yname, style) => {
     fetch('http://localhost:5000/' + keyword)
       .then((res) => {
         return res.json();
@@ -44,7 +45,8 @@ const App = () => {
           }),
         };
 
-        setter(formattedChartData);
+        setter(data);
+        second_setter(formattedChartData);
       });
   };
 
@@ -60,6 +62,7 @@ const App = () => {
       '#5D1E9A',
     ]);
     updateChart(
+      setRawDoughnutChartData,
       setFormattedDoughnutChartData,
       'categorized-expense',
       'category',
@@ -75,6 +78,7 @@ const App = () => {
         <div>
           {formattedDoughnutChartData && (
             <DoughnutChart
+              rawDoughnutChartData={rawDoughnutChartData}
               formattedDoughnutChartData={formattedDoughnutChartData}
             />
           )}

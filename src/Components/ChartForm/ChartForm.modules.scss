@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    width: min-content;
+    width: 100%;
 
     input,
     select {
@@ -21,9 +21,8 @@
       font-family: $font-family;
     }
 
-    #category {
+    .select-category {
       width: 100%;
-      text-align: center;
     }
 
     .warning-text {
