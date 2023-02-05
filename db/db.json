@@ -20,5 +20,224 @@
       "category": "travel",
       "id": 4
     }
+  ],
+  "monthly-income": [
+    {
+      "sumIncome": "20360",
+      "month": "January",
+      "id": 1,
+      "year": 2021
+    },
+    {
+      "sumIncome": "4450",
+      "month": "February",
+      "id": 2,
+      "year": 2021
+    },
+    {
+      "sumIncome": "1599",
+      "month": "March",
+      "id": 3,
+      "year": 2021
+    },
+    {
+      "sumIncome": "11900",
+      "month": "April",
+      "id": 4,
+      "year": 2021
+    },
+    {
+      "sumIncome": "1900",
+      "month": "May",
+      "id": 5,
+      "year": 2021
+    },
+    {
+      "sumIncome": "18900",
+      "month": "June",
+      "id": 6,
+      "year": 2021
+    },
+    {
+      "sumIncome": "19000",
+      "month": "July",
+      "id": 7,
+      "year": 2021
+    },
+    {
+      "sumIncome": "6000",
+      "month": "August",
+      "id": 8,
+      "year": 2021
+    },
+    {
+      "sumIncome": "30000",
+      "month": "September",
+      "id": 9,
+      "year": 2021
+    },
+    {
+      "sumIncome": "16000",
+      "month": "October",
+      "id": 10,
+      "year": 2021
+    },
+    {
+      "sumIncome": "45000",
+      "month": "November",
+      "id": 11,
+      "year": 2021
+    },
+    {
+      "sumIncome": "2500",
+      "month": "December",
+      "id": 12,
+      "year": 2021
+    },
+    {
+      "sumIncome": "3036",
+      "month": "January",
+      "id": 13,
+      "year": 2022
+    },
+    {
+      "sumIncome": "4050",
+      "month": "February",
+      "id": 14,
+      "year": 2022
+    },
+    {
+      "sumIncome": "1099",
+      "month": "March",
+      "id": 15,
+      "year": 2022
+    },
+    {
+      "sumIncome": "11000",
+      "month": "April",
+      "id": 16,
+      "year": 2022
+    },
+    {
+      "sumIncome": "1900",
+      "month": "May",
+      "id": 17,
+      "year": 2022
+    },
+    {
+      "sumIncome": "1800",
+      "month": "June",
+      "id": 18,
+      "year": 2022
+    },
+    {
+      "sumIncome": "1900",
+      "month": "July",
+      "id": 19,
+      "year": 2022
+    },
+    {
+      "sumIncome": "6000",
+      "month": "August",
+      "id": 20,
+      "year": 2022
+    },
+    {
+      "sumIncome": "3000",
+      "month": "September",
+      "id": 21,
+      "year": 2022
+    },
+    {
+      "sumIncome": "1600",
+      "month": "October",
+      "id": 22,
+      "year": 2022
+    },
+    {
+      "sumIncome": "4500",
+      "month": "November",
+      "id": 23,
+      "year": 2022
+    },
+    {
+      "sumIncome": "2500",
+      "month": "December",
+      "id": 24,
+      "year": 2022
+    },
+
+    {
+      "sumIncome": "30360",
+      "month": "January",
+      "id": 25,
+      "year": 2023
+    },
+    {
+      "sumIncome": "40450",
+      "month": "February",
+      "id": 26,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "March",
+      "id": 27,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "April",
+      "id": 28,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "May",
+      "id": 29,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "June",
+      "id": 30,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "July",
+      "id": 31,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "August",
+      "id": 32,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "September",
+      "id": 33,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "October",
+      "id": 34,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "November",
+      "id": 35,
+      "year": 2023
+    },
+    {
+      "sumIncome": "",
+      "month": "December",
+      "id": 36,
+      "year": 2023
+    }
   ]
 }

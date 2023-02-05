@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import uuid from 'react-uuid';
 import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 
@@ -105,6 +106,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
   return (
     <div className='categories-section-wrapper'>
+      <h1>Expenses this month</h1>
       <div className='doughnut-chart-container'>
         <Doughnut
           data={formattedDoughnutChartData}
@@ -125,6 +127,8 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
           }}
         />
       </div>
+
+
 
       <ChartForm
         actionHandler={handleCategorySubmit}
@@ -171,7 +175,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
           {formattedDoughnutChartData.labels.map((label) => {
             return (
-              <option key={label} value={label}>
+              <option key={uuid()} value={label}>
                 {label}
               </option>
             );
@@ -200,7 +204,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
             {formattedDoughnutChartData.labels.map((label) => {
               return (
-                <option key={label} value={label}>
+                <option key={uuid()} value={label}>
                   {label}
                 </option>
               );
@@ -208,7 +212,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
           </select>
           <button type='submit'>DELETE Category</button>
         </form>
-      </div>
+      </div> 
     </div>
   );
 };

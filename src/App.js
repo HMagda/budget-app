@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import uuid from 'react-uuid';
 import 'normalize.css';
 
 import './styles/global.scss';
 import SummaryCard from './Components/SummaryCard/SummaryCard';
 import DoughnutChart from './Components/DoughnutChart/DoughnutChart';
+import LineChart from './Components/LineChart/LineChart';
 
 const GraphStyle = class {
   constructor(label, borderWidth, borderColor, backgroundColor) {
@@ -14,9 +16,22 @@ const GraphStyle = class {
   }
 };
 
+const yearArr = ['2021', '2022', '2023'];
+const currentYear = new Date().getFullYear();
+
 const App = () => {
   const [rawDoughnutChartData, setRawDoughnutChartData] = useState(null);
   const [formattedDoughnutChartData, setFormattedDoughnutChartData] = useState(null);
+
+  const [rawMonthlyIncomeData, setRawMonthlyIncomeData] = useState(null);
+
+  const [dataset, setDataset] = useState(null);
+  const [chosenYear, setChosenYear] = useState(currentYear);
+
+  const displayDataset = (e) => {
+    const targetYear = e.target.value;
+    setChosenYear(targetYear);
+  };
 
   const updateChart = (setter, second_setter, keyword, xname, yname, style) => {
     fetch('http://localhost:5000/' + keyword)
@@ -71,10 +86,23 @@ const App = () => {
     );
   }, []);
 
+  useEffect(() => {
+    const lineChartStyle = new GraphStyle('Income', 1, '#57a773', '#57a773');
+    updateChart(
+      setRawMonthlyIncomeData,
+      setDataset,
+      'monthly-income?year=' + chosenYear,
+      'month',
+      'sumIncome',
+      lineChartStyle
+    );
+  }, [chosenYear]);
+
   return (
     <>
       <div className='wrapper'>
         <SummaryCard />
+
         <div>
           {formattedDoughnutChartData && (
             <DoughnutChart
@@ -83,6 +111,27 @@ const App = () => {
             />
           )}
         </div>
+
+        <div>
+          {rawMonthlyIncomeData && (
+            <LineChart dataset={dataset}>
+              {yearArr &&
+                yearArr.map((year) => {
+                  return (
+                    <button
+                      key={uuid()}
+                      className='btn-year'
+                      value={year}
+                      onClick={displayDataset}
+                    >
+                      {year}
+                    </button>
+                  );
+                })}
+            </LineChart>
+          )}
+        </div>
+
       </div>
     </>
   );

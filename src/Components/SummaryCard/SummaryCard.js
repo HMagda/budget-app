@@ -1,10 +1,11 @@
 import React from 'react';
+
 import './SummaryCard.modules.scss';
 
 const SummaryCard = () => {
   return (
     <div className='summary-card'>
-      <h1>Total balance</h1>
+      <h1>Total balance in {new Date().getFullYear()}</h1>
 
       <div className='detail-info'>
         <h2>Income</h2>
