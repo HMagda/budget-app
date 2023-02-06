@@ -128,8 +128,6 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
         />
       </div>
 
-
-
       <ChartForm
         actionHandler={handleCategorySubmit}
         header={'ADD New Expense'}
@@ -212,7 +210,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
           </select>
           <button type='submit'>DELETE Category</button>
         </form>
-      </div> 
+      </div>
     </div>
   );
 };

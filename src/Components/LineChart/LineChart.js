@@ -4,18 +4,26 @@ import {Chart as ChartJS} from 'chart.js/auto';
 
 import './LineChart.modules.scss';
 
-const LineChart = ({children, dataset}) => {
+const LineChart = ({children, formattedLineChartData}) => {
   return (
     <>
       <div className='line-chart-container'>
         <Line
-          data={dataset}
+          data={formattedLineChartData}
           options={{
             maintainAspectRatio: false,
+
             scales: {
               y: {
+                beginAtZero: true,
+
+                border: {
+                  color: '#fbf5f3cc',
+                },
+
                 ticks: {
                   color: '#fbf5f3cc',
+
                   font: {
                     size: 14,
                     family: 'Poppins, sans-serif',
@@ -23,6 +31,10 @@ const LineChart = ({children, dataset}) => {
                 },
               },
               x: {
+                border: {
+                  color: '#fbf5f3cc',
+                },
+
                 ticks: {
                   color: '#fbf5f3cc',
                   font: {
@@ -48,7 +60,6 @@ const LineChart = ({children, dataset}) => {
       </div>
 
       {children}
-     
     </>
   );
 };

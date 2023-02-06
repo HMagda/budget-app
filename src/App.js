@@ -23,9 +23,9 @@ const App = () => {
   const [rawDoughnutChartData, setRawDoughnutChartData] = useState(null);
   const [formattedDoughnutChartData, setFormattedDoughnutChartData] = useState(null);
 
-  const [rawMonthlyIncomeData, setRawMonthlyIncomeData] = useState(null);
+  const [rawLineChartData, setRawLineChartData] = useState(null);
+  const [formattedLineChartData, setFormattedLineChartData] = useState(null);
 
-  const [dataset, setDataset] = useState(null);
   const [chosenYear, setChosenYear] = useState(currentYear);
 
   const displayDataset = (e) => {
@@ -65,6 +65,56 @@ const App = () => {
       });
   };
 
+  const updateChart2 = (
+    setter,
+    second_setter,
+    keywords,
+    xname,
+    ynames,
+    styles
+  ) => {
+    Promise.all([
+      fetch('http://localhost:5000/' + keywords[0]).then((data) => data.json()),
+      fetch('http://localhost:5000/' + keywords[1]).then((data) => data.json()),
+    ])
+      .then((data) => {
+
+        let dataSets = [];
+        let labels = [];
+        let values = [];
+
+        for (const indexOfData in data) {
+          labels = data[indexOfData].map(function (dataArr) {
+            return dataArr[xname];
+          });
+
+          values = data[indexOfData].map(function (dataArr) {
+            return dataArr[ynames[indexOfData]];
+          });
+
+          const tempDataset = {
+            label: styles[indexOfData].label,
+            data: values,
+            borderWidth: styles[indexOfData].borderWidth,
+            borderColor: styles[indexOfData].borderColor,
+            backgroundColor: styles[indexOfData].backgroundColor,
+          };
+          dataSets.push(tempDataset);
+        }
+
+        let formattedCombinedChartData = {
+          labels: labels,
+          datasets: dataSets,
+        };
+
+        setter(data);
+        second_setter(formattedCombinedChartData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     const doughnutChartStyle = new GraphStyle('Cost', 0, '', [
       '#E69F00',
@@ -87,14 +137,21 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const lineChartStyle = new GraphStyle('Income', 1, '#57a773', '#57a773');
-    updateChart(
-      setRawMonthlyIncomeData,
-      setDataset,
+    const incomeStyle = new GraphStyle('Income', 1, '#57a773', '#57a773');
+    const expenseStyle = new GraphStyle('Expense', 1, 'red', 'red');
+    const styles = [incomeStyle, expenseStyle];
+    const keywords = [
       'monthly-income?year=' + chosenYear,
+      'monthly-expense?year=' + chosenYear,
+    ];
+    const ynames = ['sumIncome', 'sumExpense'];
+    updateChart2(
+      setRawLineChartData,
+      setFormattedLineChartData,
+      keywords,
       'month',
-      'sumIncome',
-      lineChartStyle
+      ynames,
+      styles
     );
   }, [chosenYear]);
 
@@ -113,8 +170,8 @@ const App = () => {
         </div>
 
         <div>
-          {rawMonthlyIncomeData && (
-            <LineChart dataset={dataset}>
+          {rawLineChartData && (
+            <LineChart formattedLineChartData={formattedLineChartData}>
               {yearArr &&
                 yearArr.map((year) => {
                   return (
@@ -131,7 +188,6 @@ const App = () => {
             </LineChart>
           )}
         </div>
-
       </div>
     </>
   );

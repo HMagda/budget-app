@@ -6,19 +6,24 @@
       "id": 1
     },
     {
-      "cost": "-100",
+      "cost": "500",
       "category": "media",
       "id": 2
-    },
-    {
-      "cost": "333",
-      "category": "car",
-      "id": 3
     },
     {
       "cost": "222",
       "category": "travel",
       "id": 4
+    },
+    {
+      "cost": "4444",
+      "category": "party",
+      "id": 5
+    },
+    {
+      "cost": "44",
+      "category": "ss",
+      "id": 6
     }
   ],
   "monthly-income": [
@@ -35,7 +40,7 @@
       "year": 2021
     },
     {
-      "sumIncome": "1599",
+      "sumIncome": "15099",
       "month": "March",
       "id": 3,
       "year": 2021
@@ -107,7 +112,7 @@
       "year": 2022
     },
     {
-      "sumIncome": "1099",
+      "sumIncome": "10909",
       "month": "March",
       "id": 15,
       "year": 2022
@@ -166,7 +171,6 @@
       "id": 24,
       "year": 2022
     },
-
     {
       "sumIncome": "30360",
       "month": "January",
@@ -235,6 +239,224 @@
     },
     {
       "sumIncome": "",
+      "month": "December",
+      "id": 36,
+      "year": 2023
+    }
+  ],
+  "monthly-expense": [
+    {
+      "sumExpense": "2036",
+      "month": "January",
+      "id": 1,
+      "year": 2021
+    },
+    {
+      "sumExpense": "445",
+      "month": "February",
+      "id": 2,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1599",
+      "month": "March",
+      "id": 3,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1190",
+      "month": "April",
+      "id": 4,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1900",
+      "month": "May",
+      "id": 5,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1890",
+      "month": "June",
+      "id": 6,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1900",
+      "month": "July",
+      "id": 7,
+      "year": 2021
+    },
+    {
+      "sumExpense": "6000",
+      "month": "August",
+      "id": 8,
+      "year": 2021
+    },
+    {
+      "sumExpense": "3000",
+      "month": "September",
+      "id": 9,
+      "year": 2021
+    },
+    {
+      "sumExpense": "1600",
+      "month": "October",
+      "id": 10,
+      "year": 2021
+    },
+    {
+      "sumExpense": "4500",
+      "month": "November",
+      "id": 11,
+      "year": 2021
+    },
+    {
+      "sumExpense": "2500",
+      "month": "December",
+      "id": 12,
+      "year": 2021
+    },
+    {
+      "sumExpense": "30369",
+      "month": "January",
+      "id": 13,
+      "year": 2022
+    },
+    {
+      "sumExpense": "40509",
+      "month": "February",
+      "id": 14,
+      "year": 2022
+    },
+    {
+      "sumExpense": "10999",
+      "month": "March",
+      "id": 15,
+      "year": 2022
+    },
+    {
+      "sumExpense": "11009",
+      "month": "April",
+      "id": 16,
+      "year": 2022
+    },
+    {
+      "sumExpense": "19009",
+      "month": "May",
+      "id": 17,
+      "year": 2022
+    },
+    {
+      "sumExpense": "1800",
+      "month": "June",
+      "id": 18,
+      "year": 2022
+    },
+    {
+      "sumExpense": "19009",
+      "month": "July",
+      "id": 19,
+      "year": 2022
+    },
+    {
+      "sumExpense": "6000",
+      "month": "August",
+      "id": 20,
+      "year": 2022
+    },
+    {
+      "sumExpense": "3000",
+      "month": "September",
+      "id": 21,
+      "year": 2022
+    },
+    {
+      "sumExpense": "1600",
+      "month": "October",
+      "id": 22,
+      "year": 2022
+    },
+    {
+      "sumExpense": "4500",
+      "month": "November",
+      "id": 23,
+      "year": 2022
+    },
+    {
+      "sumExpense": "2500",
+      "month": "December",
+      "id": 24,
+      "year": 2022
+    },
+    {
+      "sumExpense": "3360",
+      "month": "January",
+      "id": 25,
+      "year": 2023
+    },
+    {
+      "sumExpense": "4045",
+      "month": "February",
+      "id": 26,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "March",
+      "id": 27,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "April",
+      "id": 28,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "May",
+      "id": 29,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "June",
+      "id": 30,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "July",
+      "id": 31,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "August",
+      "id": 32,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "September",
+      "id": 33,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "October",
+      "id": 34,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
+      "month": "November",
+      "id": 35,
+      "year": 2023
+    },
+    {
+      "sumExpense": "",
       "month": "December",
       "id": 36,
       "year": 2023
