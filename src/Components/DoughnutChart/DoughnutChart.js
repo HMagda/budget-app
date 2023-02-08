@@ -2,28 +2,26 @@ import React, {useEffect, useState} from 'react';
 import uuid from 'react-uuid';
 import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
+import {RiAddLine, RiEdit2Line, RiDeleteBinLine} from 'react-icons/ri';
 
 import './DoughnutChart.modules.scss';
 import ChartForm from '../ChartForm/ChartForm';
+import Popup from '../Popup/Popup';
+
+import {customFetch} from '../../utils.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-function customFetch(url, method, data) {
-  fetch(url, {
-    method: method,
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(data),
-  })
-    .then(() => {
-      console.log('fetch', method);
-    })
-    .catch((error) => console.log(error));
-}
 
 const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
   const [cost, setCost] = useState('');
   const [category, setCategory] = useState('');
   const [isActive, setActive] = useState(true);
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [showDeleteForm, setShowDeleteForm] = useState(false);
+
+  const [isPopupShown, setIsPopupShown] = useState(false);
 
   const expense = {cost, category};
   const empty = {};
@@ -31,6 +29,21 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
   useEffect(() => {
     setActive(formattedDoughnutChartData.labels.length < 8);
   }, [formattedDoughnutChartData.labels.length]);
+
+  function displayAddForm() {
+    setShowAddForm(!showAddForm);
+    setIsPopupShown(true);
+  }
+
+  function displayEditForm() {
+    setShowEditForm(!showEditForm);
+    setIsPopupShown(true);
+  }
+
+  function displayDeleteForm() {
+    setShowDeleteForm(!showDeleteForm);
+    setIsPopupShown(true);
+  }
 
   const handleCategorySubmit = (e) => {
     e.preventDefault();
@@ -50,6 +63,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
     setCost('');
     setCategory('');
+    setShowAddForm(!showAddForm);
   };
 
   const handleCategoryEdit = (e) => {
@@ -76,6 +90,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
     setCost('');
     setCategory('');
+    setShowEditForm(!showEditForm);
   };
 
   const handleCategoryDelete = (e) => {
@@ -102,12 +117,13 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
 
     setCost('');
     setCategory('');
+    setShowDeleteForm(!showDeleteForm);
   };
 
   return (
     <div className='categories-section-wrapper'>
-      <h1>Expenses this month</h1>
       <div className='doughnut-chart-container'>
+        <h1>Expenses this month</h1>
         <Doughnut
           data={formattedDoughnutChartData}
           options={{
@@ -126,90 +142,148 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
             },
           }}
         />
-      </div>
 
-      <ChartForm
-        actionHandler={handleCategorySubmit}
-        header={'ADD New Expense'}
-        cost={cost}
-        setCost={setCost}
-      >
-        <input
-          type='text'
-          id='category'
-          required
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        ></input>
-        <button type='submit' disabled={!isActive}>
-          ADD Expense
-        </button>
-        {!isActive && (
-          <p className='warning-text'>
-            You can add up to 8 different categories
-          </p>
-        )}
-      </ChartForm>
+        <div className='chart-options-wrapper'>
+          <div className='chart-btns-container'>
+            <button
+              className='chart-btn'
+              type='button'
+              onClick={displayAddForm}
+            >
+              <RiAddLine className='icon' />
+            </button>
+            <button
+              className='chart-btn'
+              type='button'
+              onClick={displayEditForm}
+            >
+              <RiEdit2Line className='icon' />
+            </button>
+            <button
+              className='chart-btn'
+              type='button'
+              onClick={displayDeleteForm}
+            >
+              <RiDeleteBinLine className='icon' />
+            </button>
+          </div>
 
-      <ChartForm
-        actionHandler={handleCategoryEdit}
-        header={'EDIT Expense'}
-        cost={cost}
-        setCost={setCost}
-      >
-        <select
-          required
-          className='select-category'
-          id='category'
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value='' hidden>
-            --Click to choose--
-          </option>
-          <option disabled className='instruction'>
-            Click to choose
-          </option>
+          <div className='chart-form-wrapper'>
+            {showAddForm && (
+              <Popup
+                setIsPopupShown={setIsPopupShown}
+                isPopupShown={isPopupShown}
+                setShowAddForm={setShowAddForm}
+                setShowEditForm={setShowEditForm}
+                setShowDeleteForm={setShowDeleteForm}
+              >
+                <ChartForm
+                  actionHandler={handleCategorySubmit}
+                  header={'ADD New Expense'}
+                  cost={cost}
+                  setCost={setCost}
+                >
+                  <input
+                    type='text'
+                    id='category'
+                    required
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  ></input>
+                  <button type='submit' disabled={!isActive}>
+                    ADD Expense
+                  </button>
+                  {!isActive && (
+                    <p className='warning-text'>
+                      You can add up to 8 different categories
+                    </p>
+                  )}
+                </ChartForm>
+              </Popup>
+            )}
 
-          {formattedDoughnutChartData.labels.map((label) => {
-            return (
-              <option key={uuid()} value={label}>
-                {label}
-              </option>
-            );
-          })}
-        </select>
-        <button type='submit'>EDIT Expense</button>
-      </ChartForm>
+            {showEditForm && (
+              <Popup
+                setIsPopupShown={setIsPopupShown}
+                isPopupShown={isPopupShown}
+                setShowAddForm={setShowAddForm}
+                setShowEditForm={setShowEditForm}
+                setShowDeleteForm={setShowDeleteForm}
+              >
+                <ChartForm
+                  actionHandler={handleCategoryEdit}
+                  header={'EDIT Expense'}
+                  cost={cost}
+                  setCost={setCost}
+                >
+                  <select
+                    required
+                    className='select-category'
+                    id='category'
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    <option value='' hidden>
+                      --Click to choose--
+                    </option>
+                    <option disabled className='instruction'>
+                      Click to choose
+                    </option>
 
-      <div className='chart-form-container'>
-        <h2>DELETE Expense</h2>
-        <form onSubmit={handleCategoryDelete}>
-          <label htmlFor='category'>Category:</label>
-          <select
-            required
-            className='selet-category'
-            id='category'
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value='' hidden className='instruction'>
-              --Click to choose--
-            </option>
-            <option disabled className='instruction'>
-              Click to choose
-            </option>
+                    {formattedDoughnutChartData.labels.map((label) => {
+                      return (
+                        <option key={uuid()} value={label}>
+                          {label}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <button type='submit'>EDIT Expense</button>
+                </ChartForm>
+              </Popup>
+            )}
 
-            {formattedDoughnutChartData.labels.map((label) => {
-              return (
-                <option key={uuid()} value={label}>
-                  {label}
-                </option>
-              );
-            })}
-          </select>
-          <button type='submit'>DELETE Category</button>
-        </form>
+            {showDeleteForm && (
+              <Popup
+                setIsPopupShown={setIsPopupShown}
+                isPopupShown={isPopupShown}
+                setShowAddForm={setShowAddForm}
+                setShowEditForm={setShowEditForm}
+                setShowDeleteForm={setShowDeleteForm}
+              >
+                <div className='chart-form-container'>
+                  <h2>DELETE Expense</h2>
+                  <form onSubmit={handleCategoryDelete}>
+                    <label htmlFor='category'>Category:</label>
+                    <select
+                      required
+                      className='selet-category'
+                      id='category'
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    >
+                      <option value='' hidden className='instruction'>
+                        --Click to choose--
+                      </option>
+                      <option disabled className='instruction'>
+                        Click to choose
+                      </option>
+
+                      {formattedDoughnutChartData.labels.map((label) => {
+                        return (
+                          <option key={uuid()} value={label}>
+                            {label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                    <button type='submit'>DELETE Category</button>
+                  </form>
+                </div>
+              </Popup>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

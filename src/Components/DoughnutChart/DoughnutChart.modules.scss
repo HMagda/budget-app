@@ -6,5 +6,21 @@
   .doughnut-chart-container {
     min-width: 35rem;
     min-height: 35rem;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 0;
+    }
+  }
+
+  .chart-btns-container {
+    display: flex;
+    justify-content: center;
+
+    .chart-btn {
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 100%;
+    }
   }
 }

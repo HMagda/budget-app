@@ -15,6 +15,13 @@ label {
 
 button {
   font-family: $font-family;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 body {
