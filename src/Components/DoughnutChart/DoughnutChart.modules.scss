@@ -1,4 +1,7 @@
+@import '../../styles/settings.scss';
+
 .categories-section-wrapper {
+  margin: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +11,6 @@
     min-height: 35rem;
 
     h1 {
-      text-align: center;
       margin-bottom: 0;
     }
   }

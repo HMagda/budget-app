@@ -24,6 +24,11 @@
       "cost": "44",
       "category": "food",
       "id": 6
+    },
+    {
+      "cost": "1000",
+      "category": "na głupotki",
+      "id": 7
     }
   ],
   "monthly-income": [

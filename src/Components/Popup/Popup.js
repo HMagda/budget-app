@@ -12,7 +12,6 @@ const Popup = ({
 }) => {
   function closePopup() {
     setIsPopupShown(false);
-    console.log('close');
     setShowAddForm(false);
     setShowEditForm(false);
     setShowDeleteForm(false);
@@ -23,7 +22,7 @@ const Popup = ({
       <div className='popup-inner'>
         {children}
         <button className='popup-btn-close' onClick={closePopup}>
-          <RiCloseLine className='icon' />
+          <RiCloseLine />
         </button>
       </div>
     </div>

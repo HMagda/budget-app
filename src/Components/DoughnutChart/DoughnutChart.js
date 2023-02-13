@@ -4,6 +4,7 @@ import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js';
 import {RiAddLine, RiEdit2Line, RiDeleteBinLine} from 'react-icons/ri';
 
+import '../../styles/global.scss';
 import './DoughnutChart.modules.scss';
 import ChartForm from '../ChartForm/ChartForm';
 import Popup from '../Popup/Popup';
@@ -146,25 +147,25 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
         <div className='chart-options-wrapper'>
           <div className='chart-btns-container'>
             <button
-              className='chart-btn'
+              className='chart-btn + add'
               type='button'
               onClick={displayAddForm}
             >
-              <RiAddLine className='icon' />
+              <RiAddLine />
             </button>
             <button
-              className='chart-btn'
+              className='chart-btn + edit'
               type='button'
               onClick={displayEditForm}
             >
-              <RiEdit2Line className='icon' />
+              <RiEdit2Line />
             </button>
             <button
-              className='chart-btn'
+              className='chart-btn + delete'
               type='button'
               onClick={displayDeleteForm}
             >
-              <RiDeleteBinLine className='icon' />
+              <RiDeleteBinLine />
             </button>
           </div>
 
@@ -190,7 +191,7 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                   ></input>
-                  <button type='submit' disabled={!isActive}>
+                  <button type='submit' disabled={!isActive} className='add'>
                     ADD Expense
                   </button>
                   {!isActive && (
@@ -238,7 +239,9 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
                       );
                     })}
                   </select>
-                  <button type='submit'>EDIT Expense</button>
+                  <button type='submit' className='edit'>
+                    EDIT Expense
+                  </button>
                 </ChartForm>
               </Popup>
             )}
@@ -277,7 +280,9 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
                         );
                       })}
                     </select>
-                    <button type='submit'>DELETE Category</button>
+                    <button type='submit' className='delete'>
+                      DELETE Category
+                    </button>
                   </form>
                 </div>
               </Popup>

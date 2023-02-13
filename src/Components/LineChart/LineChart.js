@@ -6,12 +6,13 @@ import './LineChart.modules.scss';
 
 const LineChart = ({children, formattedLineChartData}) => {
   return (
-    <>
+    <div className='line-chart-wrapper'>
       <div className='line-chart-container'>
+        <h1>Yearly income and expense</h1>
         <Line
           data={formattedLineChartData}
           options={{
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
 
             scales: {
               y: {
@@ -57,10 +58,13 @@ const LineChart = ({children, formattedLineChartData}) => {
             },
           }}
         />
-      </div>
 
-      {children}
-    </>
+<div className='year-btns-container'>
+   {children}
+</div>
+     
+      </div>
+    </div>
   );
 };
 

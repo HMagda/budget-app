@@ -1,8 +1,44 @@
-.line-chart-container {
-  min-width: 35rem;
-  min-height: 35rem;
-}
+@import '../../styles/settings.scss';
 
-.btn-year {
-  margin: 2rem;
+.line-chart-wrapper {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .line-chart-container {
+    margin: 1rem;
+    min-width: 35rem;
+    min-height: 35rem;
+  }
+
+  .year-btns-container {
+    display: flex;
+    justify-content: center;
+
+    .btn-year {
+      @include transition;
+      margin: 1rem;
+      padding: 1rem;
+      border-radius: 1rem;
+
+      color: $color-light;
+
+      background: radial-gradient(
+        140% 140% at 0% 0%,
+        rgba(255, 255, 255, 0.4) 0,
+        rgba(255, 255, 255, 0) 100%
+      );
+
+      border-bottom: 1px solid rgb(0, 0, 0);
+      border-right: 1px solid rgb(0, 0, 0);
+
+      &:hover {
+        border-bottom: 1px solid $color-important;
+        border-right: 1px solid $color-important;
+
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
 }

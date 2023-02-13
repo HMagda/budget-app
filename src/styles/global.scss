@@ -11,6 +11,7 @@ h2,
 label {
   font-family: $font-family;
   color: $color-light;
+  text-align: center;
 }
 
 button {
@@ -31,4 +32,31 @@ body {
 
 .wrapper {
   padding: 1rem;
+}
+
+.add {
+  @include transition;
+
+  &:hover {
+    background-color: $color-success;
+    box-shadow: 0 1rem 2rem rgb(0, 0, 0);
+  }
+}
+
+.edit {
+  @include transition;
+
+  &:hover {
+    background-color: $color-warning;
+    box-shadow: 0 1rem 2rem rgb(0, 0, 0);
+  }
+}
+
+.delete {
+  @include transition;
+
+  &:hover {
+    background-color: $color-error;
+    box-shadow: 0 1rem 2rem rgb(0, 0, 0);
+  }
 }
