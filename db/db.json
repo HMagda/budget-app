@@ -6,11 +6,6 @@
       "id": 1
     },
     {
-      "cost": "500",
-      "category": "media",
-      "id": 2
-    },
-    {
       "cost": "222",
       "category": "travel",
       "id": 4
@@ -21,13 +16,13 @@
       "id": 5
     },
     {
-      "cost": "44",
+      "cost": "777",
       "category": "food",
       "id": 6
     },
     {
       "cost": "1000",
-      "category": "na głupotki",
+      "category": "car",
       "id": 7
     }
   ],

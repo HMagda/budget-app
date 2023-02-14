@@ -84,6 +84,8 @@ const App = () => {
         <div>
           {formattedDoughnutChartData && (
             <DoughnutChart
+              setRawDoughnutChartData={setRawDoughnutChartData}
+              setFormattedDoughnutChartData={setFormattedDoughnutChartData}
               rawDoughnutChartData={rawDoughnutChartData}
               formattedDoughnutChartData={formattedDoughnutChartData}
             />

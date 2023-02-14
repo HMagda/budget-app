@@ -13,7 +13,12 @@ import {customFetch} from '../../utils.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
+const DoughnutChart = ({
+  rawDoughnutChartData,
+  formattedDoughnutChartData,
+  setRawDoughnutChartData,
+  setFormattedDoughnutChartData,
+}) => {
   const [cost, setCost] = useState('');
   const [category, setCategory] = useState('');
   const [isActive, setActive] = useState(true);
@@ -21,11 +26,9 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDeleteForm, setShowDeleteForm] = useState(false);
-
   const [isPopupShown, setIsPopupShown] = useState(false);
 
-  const expense = {cost, category};
-  const empty = {};
+  const [addedElementId, setAddedElementId] = useState('');
 
   useEffect(() => {
     setActive(formattedDoughnutChartData.labels.length < 8);
@@ -46,226 +49,248 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
     setIsPopupShown(true);
   }
 
-  const handleCategorySubmit = (e) => {
-    e.preventDefault();
-
-    function addData(label, data) {
-      formattedDoughnutChartData.labels.push(label);
-      formattedDoughnutChartData.datasets[0].data.push(data);
-
-      customFetch(
-        'http://localhost:5000/categorized-expense/',
-        'POST',
-        expense
-      );
-    }
-
-    addData(category, cost);
-
+  const resetForm = () => {
     setCost('');
     setCategory('');
-    setShowAddForm(!showAddForm);
+  };
+
+  const handleCategorySubmit = async (e) => {
+    e.preventDefault();
+
+    const newElement = {cost, category};
+
+    const response = await fetch('http://localhost:5000/categorized-expense', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(newElement),
+    });
+    const createdElement = await response.json();
+
+    const newId = createdElement.id;
+
+    setRawDoughnutChartData((prevData) => [...prevData, createdElement]);
+    setFormattedDoughnutChartData((prevData) => ({
+      ...prevData,
+      labels: [...prevData.labels, createdElement.category],
+      datasets: [
+        {
+          ...prevData.datasets[0],
+          data: [...prevData.datasets[0].data, createdElement.cost],
+        },
+      ],
+    }));
+
+    resetForm();
+    setShowAddForm(false);
+    setIsPopupShown(false);
+    setAddedElementId(newId);
   };
 
   const handleCategoryEdit = (e) => {
     e.preventDefault();
 
-    function editData(label, data) {
-      const indexOfLabel = formattedDoughnutChartData.labels.indexOf(label);
-      formattedDoughnutChartData.labels.splice(indexOfLabel, 1, label);
-      formattedDoughnutChartData.datasets[0].data.splice(indexOfLabel, 1, data);
+    const editedItem = rawDoughnutChartData.find(
+      (item) => item.category === category
+    );
 
-      const editedItem = rawDoughnutChartData.find(
-        (item) => item.category === label
-      );
-      const editedItemId = editedItem.id;
+    const editedItemId = editedItem.id;
+    let editedElement;
+    let elementId;
 
-      customFetch(
-        `http://localhost:5000/categorized-expense/${editedItemId}`,
-        'PUT',
-        expense
-      );
+    if (editedItemId === undefined) {
+      editedElement = {cost, category, id: addedElementId};
+      elementId = editedElement.id;
+    } else {
+      editedElement = {...editedItem, cost, category};
+      elementId = editedItemId;
     }
 
-    editData(category, cost);
+    customFetch(
+      `http://localhost:5000/categorized-expense/${elementId}`,
+      'PUT',
+      editedElement
+    );
 
-    setCost('');
-    setCategory('');
-    setShowEditForm(!showEditForm);
+    const updatedElements = [...rawDoughnutChartData];
+    const elementIndex = updatedElements.findIndex(
+      (element) => element.id === elementId
+    );
+    updatedElements[elementIndex] = editedElement;
+
+    setRawDoughnutChartData(updatedElements);
+
+    const labelIndex = formattedDoughnutChartData.labels.indexOf(category);
+
+    const newLabels = [...formattedDoughnutChartData.labels];
+    newLabels.splice(labelIndex, 1, category);
+
+    const newDatasets = [
+      {
+        ...formattedDoughnutChartData.datasets[0],
+        data: formattedDoughnutChartData.datasets[0].data.map((cost, i) =>
+          i === labelIndex ? Number(editedElement.cost) : cost
+        ),
+      },
+    ];
+
+    setFormattedDoughnutChartData({
+      labels: newLabels,
+      datasets: newDatasets,
+    });
+
+    resetForm();
+    setShowEditForm(false);
+    setIsPopupShown(false);
   };
 
   const handleCategoryDelete = (e) => {
     e.preventDefault();
 
-    function deleteData(label) {
-      const indexOfLabel = formattedDoughnutChartData.labels.indexOf(label);
-      formattedDoughnutChartData.labels.splice(indexOfLabel, 1);
-      formattedDoughnutChartData.datasets[0].data.splice(indexOfLabel, 1);
+    const element = rawDoughnutChartData.find(
+      (item) => item.category === category
+    );
 
-      const deletedItem = rawDoughnutChartData.find(
-        (item) => item.category === label
-      );
-      const deletedItemId = deletedItem.id;
-
-      customFetch(
-        `http://localhost:5000/categorized-expense/${deletedItemId}`,
-        'DELETE',
-        empty
-      );
+    if (!element) {
+      console.log('Element not found!');
+      return;
     }
 
-    deleteData(category);
+    const id = element.id;
 
-    setCost('');
-    setCategory('');
-    setShowDeleteForm(!showDeleteForm);
+    customFetch(
+      `http://localhost:5000/categorized-expense/${id}`,
+      'DELETE',
+      {}
+    );
+
+    const newRawData = rawDoughnutChartData.filter((item) => item.id !== id);
+    setRawDoughnutChartData(newRawData);
+
+    const labels = formattedDoughnutChartData.labels;
+    const labelIndex = labels.indexOf(category);
+    const newLabels = [...labels];
+    newLabels.splice(labelIndex, 1);
+    setFormattedDoughnutChartData((prevData) => ({
+      ...prevData,
+      labels: newLabels,
+      datasets: [
+        {
+          ...prevData.datasets[0],
+          data: prevData.datasets[0].data.filter((_, i) => i !== labelIndex),
+        },
+      ],
+    }));
+
+    resetForm();
+    setShowDeleteForm(false);
+    setIsPopupShown(false);
   };
 
   return (
-    <div className='categories-section-wrapper'>
-      <div className='doughnut-chart-container'>
-        <h1>Expenses this month</h1>
-        <Doughnut
-          data={formattedDoughnutChartData}
-          options={{
-            plugins: {
-              legend: {
-                display: true,
-                position: 'left',
-                labels: {
-                  color: '#fbf5f3cc',
-                  font: {
-                    size: 14,
-                    family: 'Poppins, sans-serif',
+    <>
+      <div className='categories-section-wrapper'>
+        <div className='doughnut-chart-container'>
+          <h1>Expenses this month</h1>
+          <Doughnut
+            data={formattedDoughnutChartData}
+            options={{
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'left',
+                  labels: {
+                    color: '#fbf5f3cc',
+                    font: {
+                      size: 14,
+                      family: 'Poppins, sans-serif',
+                    },
                   },
                 },
               },
-            },
-          }}
-        />
+            }}
+          />
 
-        <div className='chart-options-wrapper'>
-          <div className='chart-btns-container'>
-            <button
-              className='chart-btn + add'
-              type='button'
-              onClick={displayAddForm}
-            >
-              <RiAddLine />
-            </button>
-            <button
-              className='chart-btn + edit'
-              type='button'
-              onClick={displayEditForm}
-            >
-              <RiEdit2Line />
-            </button>
-            <button
-              className='chart-btn + delete'
-              type='button'
-              onClick={displayDeleteForm}
-            >
-              <RiDeleteBinLine />
-            </button>
-          </div>
-
-          <div className='chart-form-wrapper'>
-            {showAddForm && (
-              <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
-                setShowAddForm={setShowAddForm}
-                setShowEditForm={setShowEditForm}
-                setShowDeleteForm={setShowDeleteForm}
+          <div className='chart-options-wrapper'>
+            <div className='chart-btns-container'>
+              <button
+                className='chart-btn + add'
+                type='button'
+                onClick={displayAddForm}
               >
-                <ChartForm
-                  actionHandler={handleCategorySubmit}
-                  header={'ADD New Expense'}
-                  cost={cost}
-                  setCost={setCost}
-                >
-                  <input
-                    type='text'
-                    id='category'
-                    required
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  ></input>
-                  <button type='submit' disabled={!isActive} className='add'>
-                    ADD Expense
-                  </button>
-                  {!isActive && (
-                    <p className='warning-text'>
-                      You can add up to 8 different categories
-                    </p>
-                  )}
-                </ChartForm>
-              </Popup>
-            )}
-
-            {showEditForm && (
-              <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
-                setShowAddForm={setShowAddForm}
-                setShowEditForm={setShowEditForm}
-                setShowDeleteForm={setShowDeleteForm}
+                <RiAddLine />
+              </button>
+              <button
+                className='chart-btn + edit'
+                type='button'
+                onClick={displayEditForm}
               >
-                <ChartForm
-                  actionHandler={handleCategoryEdit}
-                  header={'EDIT Expense'}
-                  cost={cost}
-                  setCost={setCost}
+                <RiEdit2Line />
+              </button>
+              <button
+                className='chart-btn + delete'
+                type='button'
+                onClick={displayDeleteForm}
+              >
+                <RiDeleteBinLine />
+              </button>
+            </div>
+
+            <div className='chart-form-wrapper'>
+              {showAddForm && (
+                <Popup
+                  setIsPopupShown={setIsPopupShown}
+                  isPopupShown={isPopupShown}
+                  setShowAddForm={setShowAddForm}
+                  setShowEditForm={setShowEditForm}
+                  setShowDeleteForm={setShowDeleteForm}
                 >
-                  <select
-                    required
-                    className='select-category'
-                    id='category'
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                  <ChartForm
+                    actionHandler={handleCategorySubmit}
+                    header={'ADD New Expense'}
+                    cost={cost}
+                    setCost={setCost}
                   >
-                    <option value='' hidden>
-                      --Click to choose--
-                    </option>
-                    <option disabled className='instruction'>
-                      Click to choose
-                    </option>
+                    <input
+                      type='text'
+                      id='category'
+                      required
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    ></input>
+                    <button type='submit' disabled={!isActive} className='add'>
+                      ADD Expense
+                    </button>
+                    {!isActive && (
+                      <p className='warning-text'>
+                        You can add up to 8 different categories
+                      </p>
+                    )}
+                  </ChartForm>
+                </Popup>
+              )}
 
-                    {formattedDoughnutChartData.labels.map((label) => {
-                      return (
-                        <option key={uuid()} value={label}>
-                          {label}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <button type='submit' className='edit'>
-                    EDIT Expense
-                  </button>
-                </ChartForm>
-              </Popup>
-            )}
-
-            {showDeleteForm && (
-              <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
-                setShowAddForm={setShowAddForm}
-                setShowEditForm={setShowEditForm}
-                setShowDeleteForm={setShowDeleteForm}
-              >
-                <div className='chart-form-container'>
-                  <h2>DELETE Expense</h2>
-                  <form onSubmit={handleCategoryDelete}>
-                    <label htmlFor='category'>Category:</label>
+              {showEditForm && (
+                <Popup
+                  setIsPopupShown={setIsPopupShown}
+                  isPopupShown={isPopupShown}
+                  setShowAddForm={setShowAddForm}
+                  setShowEditForm={setShowEditForm}
+                  setShowDeleteForm={setShowDeleteForm}
+                >
+                  <ChartForm
+                    actionHandler={handleCategoryEdit}
+                    header={'EDIT Expense'}
+                    cost={cost}
+                    setCost={setCost}
+                  >
                     <select
                       required
-                      className='selet-category'
+                      className='select-category'
                       id='category'
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
-                      <option value='' hidden className='instruction'>
+                      <option value='' hidden>
                         --Click to choose--
                       </option>
                       <option disabled className='instruction'>
@@ -280,17 +305,59 @@ const DoughnutChart = ({rawDoughnutChartData, formattedDoughnutChartData}) => {
                         );
                       })}
                     </select>
-                    <button type='submit' className='delete'>
-                      DELETE Category
+                    <button type='submit' className='edit'>
+                      EDIT Expense
                     </button>
-                  </form>
-                </div>
-              </Popup>
-            )}
+                  </ChartForm>
+                </Popup>
+              )}
+
+              {showDeleteForm && (
+                <Popup
+                  setIsPopupShown={setIsPopupShown}
+                  isPopupShown={isPopupShown}
+                  setShowAddForm={setShowAddForm}
+                  setShowEditForm={setShowEditForm}
+                  setShowDeleteForm={setShowDeleteForm}
+                >
+                  <div className='chart-form-container'>
+                    <h2>DELETE Expense</h2>
+                    <form onSubmit={handleCategoryDelete}>
+                      <label htmlFor='category'>Category:</label>
+                      <select
+                        required
+                        className='selet-category'
+                        id='category'
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                      >
+                        <option value='' hidden className='instruction'>
+                          --Click to choose--
+                        </option>
+                        <option disabled className='instruction'>
+                          Click to choose
+                        </option>
+
+                        {formattedDoughnutChartData.labels.map((label) => {
+                          return (
+                            <option key={uuid()} value={label}>
+                              {label}
+                            </option>
+                          );
+                        })}
+                      </select>
+                      <button type='submit' className='delete'>
+                        DELETE Category
+                      </button>
+                    </form>
+                  </div>
+                </Popup>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
