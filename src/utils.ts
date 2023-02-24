@@ -1,4 +1,4 @@
-export function customFetch(url, method, data) {
+export function customFetch(url: string, method: string, data: any) {
   fetch(url, {
     method: method,
     headers: {'Content-Type': 'application/json'},
@@ -11,23 +11,28 @@ export function customFetch(url, method, data) {
 }
 
 export const updateChart = (
-  setter,
-  second_setter,
-  keyword,
-  xname,
-  yname,
-  style
+  setter: React.Dispatch<React.SetStateAction<any[]>>,
+  second_setter: React.Dispatch<React.SetStateAction<any>>,
+  keyword: string,
+  xname: string,
+  yname: string,
+  style: {
+    label: string;
+    borderWidth: number;
+    borderColor: string;
+    backgroundColor: string;
+  }
 ) => {
   fetch('http://localhost:5000/' + keyword)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
-      const x = data.map(function (dataArr) {
+      const x = data.map(function (dataArr: any) {
         return dataArr[xname];
       });
 
-      const y = data.map(function (dataArr) {
+      const y = data.map(function (dataArr: any) {
         return dataArr[yname];
       });
 
@@ -50,12 +55,17 @@ export const updateChart = (
 };
 
 export const updateChart2 = (
-  setter,
-  second_setter,
-  keywords,
-  xname,
-  ynames,
-  styles
+  setter: React.Dispatch<React.SetStateAction<any[]>>,
+  second_setter: React.Dispatch<React.SetStateAction<any>>,
+  keywords: string[],
+  xname: string,
+  ynames: string[],
+  styles: {
+    label: string;
+    borderWidth: number;
+    borderColor: string;
+    backgroundColor: string;
+  }[]
 ) => {
   Promise.all([
     fetch('http://localhost:5000/' + keywords[0]).then((data) => data.json()),
@@ -67,11 +77,11 @@ export const updateChart2 = (
       let values = [];
 
       for (const indexOfData in data) {
-        labels = data[indexOfData].map(function (dataArr) {
+        labels = data[indexOfData].map(function (dataArr: any) {
           return dataArr[xname];
         });
 
-        values = data[indexOfData].map(function (dataArr) {
+        values = data[indexOfData].map(function (dataArr: any) {
           return dataArr[ynames[indexOfData]];
         });
 

@@ -4,7 +4,7 @@ import 'normalize.css';
 
 import './styles/global.scss';
 import SummaryCard from './Components/SummaryCard/SummaryCard';
-import DoughnutChart from './Components/DoughnutChart/DoughnutChart';
+import DoughnutChart from './Components/DoughnutChart/DoughnutChart.tsx';
 import LineChart from './Components/LineChart/LineChart';
 
 import {updateChart, updateChart2} from './utils';

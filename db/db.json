@@ -6,24 +6,39 @@
       "id": 1
     },
     {
-      "cost": "222",
-      "category": "travel",
-      "id": 4
-    },
-    {
-      "cost": "4444",
-      "category": "party",
-      "id": 5
-    },
-    {
-      "cost": "777",
-      "category": "food",
-      "id": 6
-    },
-    {
       "cost": "1000",
       "category": "car",
       "id": 7
+    },
+    {
+      "cost": "66",
+      "category": "more",
+      "id": 8
+    },
+    {
+      "cost": "55",
+      "category": "ff",
+      "id": 24
+    },
+    {
+      "cost": "77",
+      "category": "ff",
+      "id": 25
+    },
+    {
+      "cost": "77",
+      "category": "ff",
+      "id": 26
+    },
+    {
+      "cost": "55",
+      "category": "ff",
+      "id": 27
+    },
+    {
+      "cost": "8888888",
+      "category": "car",
+      "id": 28
     }
   ],
   "monthly-income": [
