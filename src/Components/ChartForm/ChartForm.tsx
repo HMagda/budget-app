@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './ChartForm.modules.scss';
 
-const ChartForm = ({actionHandler, setCost, header, cost, children}) => {
+type ChartFormProps = {
+  actionHandler: (e: React.FormEvent<HTMLFormElement>) => void;
+  setCost: React.Dispatch<React.SetStateAction<string>>;
+  header: string;
+  cost: string;
+  children: ReactNode;
+}
+
+const ChartForm: React.FC<ChartFormProps> = ({actionHandler, setCost, header, cost, children}) => {
   return (
     <div className='chart-form-container'>
       <h2>{header}</h2>

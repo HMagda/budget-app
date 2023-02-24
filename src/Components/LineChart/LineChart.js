@@ -59,10 +59,7 @@ const LineChart = ({children, formattedLineChartData}) => {
           }}
         />
 
-<div className='year-btns-container'>
-   {children}
-</div>
-     
+        <div className='year-btns-container'>{children}</div>
       </div>
     </div>
   );

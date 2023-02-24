@@ -1,17 +1,22 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {RiCloseLine} from 'react-icons/ri';
 
 import './Popup.modules.scss';
 
-const Popup = ({
-  setIsPopupShown,
+type PopupProps = {
+  children: ReactNode;
+  setShowAddForm: (isShown: boolean) => void;
+  setShowEditForm: (isShown: boolean) => void;
+  setShowDeleteForm: (isShown: boolean) => void;
+};
+
+const Popup: React.FC<PopupProps> = ({
   children,
   setShowAddForm,
   setShowEditForm,
   setShowDeleteForm,
 }) => {
   function closePopup() {
-    setIsPopupShown(false);
     setShowAddForm(false);
     setShowEditForm(false);
     setShowDeleteForm(false);

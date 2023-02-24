@@ -6,36 +6,59 @@ import {RiAddLine, RiEdit2Line, RiDeleteBinLine} from 'react-icons/ri';
 
 import '../../styles/global.scss';
 import './DoughnutChart.modules.scss';
-
-// @ts-ignore
 import ChartForm from '../ChartForm/ChartForm';
-// @ts-ignore
 import Popup from '../Popup/Popup';
-// @ts-ignore
-import {customFetch} from '../../utils.ts';
+import {customFetch} from '../../utils';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = ({
-  // @ts-ignore
+interface DoughnutChartProps {
+  rawDoughnutChartData: {
+    id: number;
+    category: string;
+    cost: number;
+  }[];
+  formattedDoughnutChartData: {
+    labels: string[];
+    datasets: {
+      data: number[];
+      backgroundColor: string[];
+    }[];
+  };
+  setRawDoughnutChartData: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        category: string;
+        cost: number;
+      }[]
+    >
+  >;
+  setFormattedDoughnutChartData: React.Dispatch<
+    React.SetStateAction<{
+      labels: string[];
+      datasets: {
+        data: number[];
+        backgroundColor: string[];
+      }[];
+    }>
+  >;
+}
+
+const DoughnutChart: React.FC<DoughnutChartProps> = ({
   rawDoughnutChartData,
-  // @ts-ignore
   formattedDoughnutChartData,
-  // @ts-ignore
   setRawDoughnutChartData,
-  // @ts-ignore
   setFormattedDoughnutChartData,
 }) => {
   const [cost, setCost] = useState<string>('');
   const [category, setCategory] = useState<string>('');
-  const [isActive, setActive] = useState<boolean>(true);
+  const [addedElementId, setAddedElementId] = useState<string>('');
 
+  const [isActive, setActive] = useState<boolean>(true);
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
   const [showDeleteForm, setShowDeleteForm] = useState<boolean>(false);
-  const [isPopupShown, setIsPopupShown] = useState<boolean>(false);
-
-  const [addedElementId, setAddedElementId] = useState<string>('');
 
   useEffect(() => {
     setActive(formattedDoughnutChartData.labels.length < 8);
@@ -43,17 +66,14 @@ const DoughnutChart = ({
 
   function displayAddForm() {
     setShowAddForm(!showAddForm);
-    setIsPopupShown(true);
   }
 
   function displayEditForm() {
     setShowEditForm(!showEditForm);
-    setIsPopupShown(true);
   }
 
   function displayDeleteForm() {
     setShowDeleteForm(!showDeleteForm);
-    setIsPopupShown(true);
   }
 
   const resetForm = () => {
@@ -69,7 +89,6 @@ const DoughnutChart = ({
     e.preventDefault();
 
     const categoryExists = rawDoughnutChartData.some(
-      // @ts-ignore
       (item) => item.category === category
     );
 
@@ -89,9 +108,8 @@ const DoughnutChart = ({
 
     const newId = createdElement.id;
 
-    // @ts-ignore
     setRawDoughnutChartData((prevData) => [...prevData, createdElement]);
-    // @ts-ignore
+
     setFormattedDoughnutChartData((prevData) => ({
       ...prevData,
       labels: [...prevData.labels, createdElement.category],
@@ -105,31 +123,40 @@ const DoughnutChart = ({
 
     resetForm();
     setShowAddForm(false);
-    setIsPopupShown(false);
+
     setAddedElementId(newId);
   };
 
-  const handleCategoryEdit = (e: React.FormEvent) => {
+  const handleCategoryEdit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const editedItem = rawDoughnutChartData.find(
-      // @ts-ignore
       (item) => item.category === category
     );
 
-    const editedItemId = editedItem?.id;
-    let editedElement: {cost: number; category: string; id: string};
-    let elementId: string;
+    let editedElement: {cost: number; category: string; id: number};
+    let elementId: number | string;
+
+    if (!editedItem) {
+      console.log('Element not found!');
+      return;
+    }
+
+    const editedItemId = editedItem.id;
 
     if (editedItemId === undefined) {
-      editedElement = {cost: Number(cost), category, id: addedElementId};
+      editedElement = {
+        cost: Number(cost),
+        category,
+        id: Number(addedElementId),
+      };
       elementId = editedElement.id;
     } else {
-      editedElement = {...editedItem, cost, category};
+      editedElement = {...editedItem, cost: Number(cost), category};
       elementId = editedItemId;
     }
 
-    customFetch(
+    await customFetch(
       `http://localhost:5000/categorized-expense/${elementId}`,
       'PUT',
       editedElement
@@ -151,7 +178,6 @@ const DoughnutChart = ({
     const newDatasets = [
       {
         ...formattedDoughnutChartData.datasets[0],
-        // @ts-ignore
         data: formattedDoughnutChartData.datasets[0].data.map((cost, i) =>
           i === labelIndex ? Number(editedElement.cost) : cost
         ),
@@ -165,14 +191,12 @@ const DoughnutChart = ({
 
     resetForm();
     setShowEditForm(false);
-    setIsPopupShown(false);
   };
 
-  const handleCategoryDelete = (e: React.FormEvent) => {
+  const handleCategoryDelete = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const element = rawDoughnutChartData.find(
-      // @ts-ignore
       (item) => item.category === category
     );
 
@@ -183,36 +207,33 @@ const DoughnutChart = ({
 
     const id: number = element.id;
 
-    customFetch(
+    await customFetch(
       `http://localhost:5000/categorized-expense/${id}`,
       'DELETE',
       {}
     );
 
-    // @ts-ignore
     const newRawData = rawDoughnutChartData.filter((item) => item.id !== id);
     setRawDoughnutChartData(newRawData);
 
-    const labels = formattedDoughnutChartData.labels;
-    const labelIndex = labels.indexOf(category);
-    const newLabels = [...labels];
+    const labelIndex = formattedDoughnutChartData.labels.indexOf(category);
+    const newLabels = [...formattedDoughnutChartData.labels];
     newLabels.splice(labelIndex, 1);
-    // @ts-ignore
-    setFormattedDoughnutChartData((prevData) => ({
-      ...prevData,
+
+    const newDatasets = formattedDoughnutChartData.datasets.map((dataset) => {
+      return {
+        ...dataset,
+        data: dataset.data.filter((_, i) => i !== labelIndex),
+      };
+    });
+
+    setFormattedDoughnutChartData({
       labels: newLabels,
-      datasets: [
-        {
-          ...prevData.datasets[0],
-          // @ts-ignore
-          data: prevData.datasets[0].data.filter((_, i) => i !== labelIndex),
-        },
-      ],
-    }));
+      datasets: newDatasets,
+    });
 
     resetForm();
     setShowDeleteForm(false);
-    setIsPopupShown(false);
   };
 
   return (
@@ -266,8 +287,6 @@ const DoughnutChart = ({
           <div className='chart-form-wrapper'>
             {showAddForm && (
               <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
@@ -300,8 +319,6 @@ const DoughnutChart = ({
 
             {showEditForm && (
               <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
@@ -326,10 +343,9 @@ const DoughnutChart = ({
                       Click to choose
                     </option>
 
-                    {/* @ts-ignore */}
                     {formattedDoughnutChartData.labels.map((label) => {
                       return (
-                        <option key={uuid()} value={label}>
+                        <option key={uuid()} value={label as string}>
                           {label}
                         </option>
                       );
@@ -344,8 +360,6 @@ const DoughnutChart = ({
 
             {showDeleteForm && (
               <Popup
-                setIsPopupShown={setIsPopupShown}
-                isPopupShown={isPopupShown}
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
@@ -368,10 +382,9 @@ const DoughnutChart = ({
                         Click to choose
                       </option>
 
-                      {/* @ts-ignore */}
                       {formattedDoughnutChartData.labels.map((label) => {
                         return (
-                          <option key={uuid()} value={label}>
+                          <option key={uuid()} value={label as string}>
                             {label}
                           </option>
                         );

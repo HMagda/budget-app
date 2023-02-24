@@ -1,9 +1,13 @@
 {
   "categorized-expense": [
     {
-      "cost": "170",
       "category": "clothes",
       "id": 1
+    },
+    {
+      "cost": 444,
+      "category": "travel",
+      "id": 5
     },
     {
       "cost": "1000",
@@ -11,34 +15,14 @@
       "id": 7
     },
     {
-      "cost": "66",
-      "category": "more",
+      "cost": 5432,
+      "category": "presents",
       "id": 8
     },
     {
-      "cost": "55",
-      "category": "ff",
-      "id": 24
-    },
-    {
-      "cost": "77",
-      "category": "ff",
-      "id": 25
-    },
-    {
-      "cost": "77",
-      "category": "ff",
-      "id": 26
-    },
-    {
-      "cost": "55",
-      "category": "ff",
-      "id": 27
-    },
-    {
-      "cost": "8888888",
-      "category": "car",
-      "id": 28
+      "cost": "7733",
+      "category": "media",
+      "id": 9
     }
   ],
   "monthly-income": [
