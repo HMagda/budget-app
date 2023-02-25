@@ -1,10 +1,30 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
+import Chart from 'chart.js/auto';
+import {CategoryScale, LinearScale} from 'chart.js';
 import {Line} from 'react-chartjs-2';
-import {Chart as ChartJS} from 'chart.js/auto';
 
 import './LineChart.modules.scss';
 
-const LineChart = ({children, formattedLineChartData}) => {
+Chart.register(CategoryScale);
+Chart.register(LinearScale);
+
+type LineChartProps = {
+  children: ReactNode;
+  formattedLineChartData: {
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+      backgroundColor: string;
+      borderColor: string;
+    }[];
+  };
+};
+
+const LineChart: React.FC<LineChartProps> = ({
+  children,
+  formattedLineChartData,
+}) => {
   return (
     <div className='line-chart-wrapper'>
       <div className='line-chart-container'>
@@ -13,18 +33,14 @@ const LineChart = ({children, formattedLineChartData}) => {
           data={formattedLineChartData}
           options={{
             maintainAspectRatio: true,
-
             scales: {
               y: {
                 beginAtZero: true,
-
                 border: {
                   color: '#fbf5f3cc',
                 },
-
                 ticks: {
                   color: '#fbf5f3cc',
-
                   font: {
                     size: 14,
                     family: 'Poppins, sans-serif',
@@ -35,7 +51,6 @@ const LineChart = ({children, formattedLineChartData}) => {
                 border: {
                   color: '#fbf5f3cc',
                 },
-
                 ticks: {
                   color: '#fbf5f3cc',
                   font: {
@@ -58,7 +73,6 @@ const LineChart = ({children, formattedLineChartData}) => {
             },
           }}
         />
-
         <div className='year-btns-container'>{children}</div>
       </div>
     </div>

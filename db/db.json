@@ -15,14 +15,14 @@
       "id": 7
     },
     {
-      "cost": 5432,
-      "category": "presents",
-      "id": 8
-    },
-    {
       "cost": "7733",
       "category": "media",
       "id": 9
+    },
+    {
+      "cost": 5445,
+      "category": "presents",
+      "id": 10
     }
   ],
   "monthly-income": [

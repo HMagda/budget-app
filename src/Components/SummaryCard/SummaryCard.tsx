@@ -2,7 +2,7 @@ import React from 'react';
 
 import './SummaryCard.modules.scss';
 
-const SummaryCard = () => {
+const SummaryCard: React.FC = () => {
   return (
     <div className='summary-card'>
       <h1>Total balance in {new Date().getFullYear()}</h1>
