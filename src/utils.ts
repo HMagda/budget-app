@@ -20,7 +20,7 @@ export const updateChart = (
     label: string;
     borderWidth: number;
     borderColor: string;
-    backgroundColor: string;
+    backgroundColor: string[];
   }
 ) => {
   fetch('http://localhost:5000/' + keyword)
@@ -54,18 +54,32 @@ export const updateChart = (
     });
 };
 
+export class GraphStyle {
+  label: string;
+  borderWidth: number;
+  borderColor: string;
+  backgroundColor: string[];
+
+  constructor(
+    label: string,
+    borderWidth: number,
+    borderColor: string,
+    backgroundColor: string[]
+  ) {
+    this.label = label;
+    this.borderWidth = borderWidth;
+    this.borderColor = borderColor;
+    this.backgroundColor = backgroundColor;
+  }
+}
+
 export const updateChart2 = (
   setter: React.Dispatch<React.SetStateAction<any[]>>,
   second_setter: React.Dispatch<React.SetStateAction<any>>,
   keywords: string[],
   xname: string,
   ynames: string[],
-  styles: {
-    label: string;
-    borderWidth: number;
-    borderColor: string;
-    backgroundColor: string;
-  }[]
+  styles: GraphStyle[]
 ) => {
   Promise.all([
     fetch('http://localhost:5000/' + keywords[0]).then((data) => data.json()),

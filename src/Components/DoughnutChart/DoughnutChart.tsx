@@ -25,15 +25,11 @@ interface DoughnutChartProps {
       backgroundColor: string[];
     }[];
   };
+
   setRawDoughnutChartData: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        category: string;
-        cost: number;
-      }[]
-    >
+    React.SetStateAction<{id: number; category: string; cost: number}[]>
   >;
+
   setFormattedDoughnutChartData: React.Dispatch<
     React.SetStateAction<{
       labels: string[];
