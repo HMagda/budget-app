@@ -1,6 +1,7 @@
 {
   "categorized-expense": [
     {
+      "cost": 444,
       "category": "clothes",
       "id": 1
     },
@@ -15,7 +16,7 @@
       "id": 7
     },
     {
-      "cost": "7733",
+      "cost": 7733,
       "category": "media",
       "id": 9
     },
@@ -27,217 +28,217 @@
   ],
   "monthly-income": [
     {
-      "sumIncome": "20360",
+      "sumIncome": 20360,
       "month": "January",
       "id": 1,
       "year": 2021
     },
     {
-      "sumIncome": "4450",
+      "sumIncome": 4450,
       "month": "February",
       "id": 2,
       "year": 2021
     },
     {
-      "sumIncome": "15099",
+      "sumIncome": 15099,
       "month": "March",
       "id": 3,
       "year": 2021
     },
     {
-      "sumIncome": "11900",
+      "sumIncome": 11900,
       "month": "April",
       "id": 4,
       "year": 2021
     },
     {
-      "sumIncome": "1900",
+      "sumIncome": 1900,
       "month": "May",
       "id": 5,
       "year": 2021
     },
     {
-      "sumIncome": "18900",
+      "sumIncome": 18900,
       "month": "June",
       "id": 6,
       "year": 2021
     },
     {
-      "sumIncome": "19000",
+      "sumIncome": 19000,
       "month": "July",
       "id": 7,
       "year": 2021
     },
     {
-      "sumIncome": "6000",
+      "sumIncome": 6000,
       "month": "August",
       "id": 8,
       "year": 2021
     },
     {
-      "sumIncome": "30000",
+      "sumIncome": 30000,
       "month": "September",
       "id": 9,
       "year": 2021
     },
     {
-      "sumIncome": "16000",
+      "sumIncome": 16000,
       "month": "October",
       "id": 10,
       "year": 2021
     },
     {
-      "sumIncome": "45000",
+      "sumIncome": 45000,
       "month": "November",
       "id": 11,
       "year": 2021
     },
     {
-      "sumIncome": "2500",
+      "sumIncome": 2500,
       "month": "December",
       "id": 12,
       "year": 2021
     },
     {
-      "sumIncome": "3036",
+      "sumIncome": 3036,
       "month": "January",
       "id": 13,
       "year": 2022
     },
     {
-      "sumIncome": "4050",
+      "sumIncome": 4050,
       "month": "February",
       "id": 14,
       "year": 2022
     },
     {
-      "sumIncome": "10909",
+      "sumIncome": 10909,
       "month": "March",
       "id": 15,
       "year": 2022
     },
     {
-      "sumIncome": "11000",
+      "sumIncome": 11000,
       "month": "April",
       "id": 16,
       "year": 2022
     },
     {
-      "sumIncome": "1900",
+      "sumIncome": 1900,
       "month": "May",
       "id": 17,
       "year": 2022
     },
     {
-      "sumIncome": "1800",
+      "sumIncome": 1800,
       "month": "June",
       "id": 18,
       "year": 2022
     },
     {
-      "sumIncome": "1900",
+      "sumIncome": 1900,
       "month": "July",
       "id": 19,
       "year": 2022
     },
     {
-      "sumIncome": "6000",
+      "sumIncome": 6000,
       "month": "August",
       "id": 20,
       "year": 2022
     },
     {
-      "sumIncome": "3000",
+      "sumIncome": 3000,
       "month": "September",
       "id": 21,
       "year": 2022
     },
     {
-      "sumIncome": "1600",
+      "sumIncome": 1600,
       "month": "October",
       "id": 22,
       "year": 2022
     },
     {
-      "sumIncome": "4500",
+      "sumIncome": 4500,
       "month": "November",
       "id": 23,
       "year": 2022
     },
     {
-      "sumIncome": "2500",
+      "sumIncome": 2500,
       "month": "December",
       "id": 24,
       "year": 2022
     },
     {
-      "sumIncome": "30360",
+      "sumIncome": 30360,
       "month": "January",
       "id": 25,
       "year": 2023
     },
     {
-      "sumIncome": "40450",
+      "sumIncome": 40450,
       "month": "February",
       "id": 26,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "March",
       "id": 27,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "April",
       "id": 28,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "May",
       "id": 29,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "June",
       "id": 30,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "July",
       "id": 31,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "August",
       "id": 32,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "September",
       "id": 33,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "October",
       "id": 34,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "November",
       "id": 35,
       "year": 2023
     },
     {
-      "sumIncome": "",
+      "sumIncome": 0,
       "month": "December",
       "id": 36,
       "year": 2023
@@ -245,217 +246,217 @@
   ],
   "monthly-expense": [
     {
-      "sumExpense": "2036",
+      "sumExpense": 2036,
       "month": "January",
       "id": 1,
       "year": 2021
     },
     {
-      "sumExpense": "445",
+      "sumExpense": 445,
       "month": "February",
       "id": 2,
       "year": 2021
     },
     {
-      "sumExpense": "1599",
+      "sumExpense": 1599,
       "month": "March",
       "id": 3,
       "year": 2021
     },
     {
-      "sumExpense": "1190",
+      "sumExpense": 1190,
       "month": "April",
       "id": 4,
       "year": 2021
     },
     {
-      "sumExpense": "1900",
+      "sumExpense": 1900,
       "month": "May",
       "id": 5,
       "year": 2021
     },
     {
-      "sumExpense": "1890",
+      "sumExpense": 1890,
       "month": "June",
       "id": 6,
       "year": 2021
     },
     {
-      "sumExpense": "1900",
+      "sumExpense": 1900,
       "month": "July",
       "id": 7,
       "year": 2021
     },
     {
-      "sumExpense": "6000",
+      "sumExpense": 6000,
       "month": "August",
       "id": 8,
       "year": 2021
     },
     {
-      "sumExpense": "3000",
+      "sumExpense": 3000,
       "month": "September",
       "id": 9,
       "year": 2021
     },
     {
-      "sumExpense": "1600",
+      "sumExpense": 1600,
       "month": "October",
       "id": 10,
       "year": 2021
     },
     {
-      "sumExpense": "4500",
+      "sumExpense": 4500,
       "month": "November",
       "id": 11,
       "year": 2021
     },
     {
-      "sumExpense": "2500",
+      "sumExpense": 2500,
       "month": "December",
       "id": 12,
       "year": 2021
     },
     {
-      "sumExpense": "30369",
+      "sumExpense": 30369,
       "month": "January",
       "id": 13,
       "year": 2022
     },
     {
-      "sumExpense": "40509",
+      "sumExpense": 40509,
       "month": "February",
       "id": 14,
       "year": 2022
     },
     {
-      "sumExpense": "10999",
+      "sumExpense": 10999,
       "month": "March",
       "id": 15,
       "year": 2022
     },
     {
-      "sumExpense": "11009",
+      "sumExpense": 11009,
       "month": "April",
       "id": 16,
       "year": 2022
     },
     {
-      "sumExpense": "19009",
+      "sumExpense": 19009,
       "month": "May",
       "id": 17,
       "year": 2022
     },
     {
-      "sumExpense": "1800",
+      "sumExpense": 1800,
       "month": "June",
       "id": 18,
       "year": 2022
     },
     {
-      "sumExpense": "19009",
+      "sumExpense": 19009,
       "month": "July",
       "id": 19,
       "year": 2022
     },
     {
-      "sumExpense": "6000",
+      "sumExpense": 6000,
       "month": "August",
       "id": 20,
       "year": 2022
     },
     {
-      "sumExpense": "3000",
+      "sumExpense": 3000,
       "month": "September",
       "id": 21,
       "year": 2022
     },
     {
-      "sumExpense": "1600",
+      "sumExpense": 1600,
       "month": "October",
       "id": 22,
       "year": 2022
     },
     {
-      "sumExpense": "4500",
+      "sumExpense": 4500,
       "month": "November",
       "id": 23,
       "year": 2022
     },
     {
-      "sumExpense": "2500",
+      "sumExpense": 2500,
       "month": "December",
       "id": 24,
       "year": 2022
     },
     {
-      "sumExpense": "3360",
+      "sumExpense": 3360,
       "month": "January",
       "id": 25,
       "year": 2023
     },
     {
-      "sumExpense": "4045",
+      "sumExpense": 4045,
       "month": "February",
       "id": 26,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "March",
       "id": 27,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "April",
       "id": 28,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "May",
       "id": 29,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "June",
       "id": 30,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "July",
       "id": 31,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "August",
       "id": 32,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "September",
       "id": 33,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "October",
       "id": 34,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "November",
       "id": 35,
       "year": 2023
     },
     {
-      "sumExpense": "",
+      "sumExpense": 0,
       "month": "December",
       "id": 36,
       "year": 2023
