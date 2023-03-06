@@ -8,6 +8,7 @@ type PopupProps = {
   setShowAddForm: (isShown: boolean) => void;
   setShowEditForm: (isShown: boolean) => void;
   setShowDeleteForm: (isShown: boolean) => void;
+  resetForm: () => void;
 };
 
 const Popup: React.FC<PopupProps> = ({
@@ -15,11 +16,13 @@ const Popup: React.FC<PopupProps> = ({
   setShowAddForm,
   setShowEditForm,
   setShowDeleteForm,
+  resetForm,
 }) => {
   function closePopup() {
     setShowAddForm(false);
     setShowEditForm(false);
     setShowDeleteForm(false);
+    resetForm();
   }
 
   return (

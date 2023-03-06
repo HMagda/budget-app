@@ -47,17 +47,18 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
   setRawDoughnutChartData,
   setFormattedDoughnutChartData,
 }) => {
-  const [cost, setCost] = useState<string>('');
+  const [cost, setCost] = useState<number | string>('');
   const [category, setCategory] = useState<string>('');
   const [addedElementId, setAddedElementId] = useState<string>('');
 
   const [isActive, setActive] = useState<boolean>(true);
+  const [showWarning, setShowWarning] = useState<boolean>(false);
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const [showEditForm, setShowEditForm] = useState<boolean>(false);
   const [showDeleteForm, setShowDeleteForm] = useState<boolean>(false);
 
   useEffect(() => {
-    setActive(formattedDoughnutChartData.labels.length < 8);
+    setShowWarning(formattedDoughnutChartData.labels.length >= 8);
   }, [formattedDoughnutChartData.labels.length]);
 
   function displayAddForm() {
@@ -79,19 +80,17 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value);
+
+    const categoryExists = rawDoughnutChartData.some(
+      (item) => item.category === e.target.value
+    );
+    
+    categoryExists ? setActive(false) : setActive(true);
   };
 
   const handleCategorySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const categoryExists = rawDoughnutChartData.some(
-      (item) => item.category === category
-    );
-
-    if (categoryExists) {
-      alert('Category already exists!');
-      //to do: disable submit btn if categoryExists
-    }
     const newElement = {cost, category};
 
     const response = await fetch('http://localhost:5000/categorized-expense', {
@@ -286,6 +285,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
+                resetForm={resetForm}
               >
                 <ChartForm
                   actionHandler={handleCategorySubmit}
@@ -300,14 +300,22 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
                     value={category}
                     onChange={handleCategoryChange}
                   ></input>
-                  <button type='submit' disabled={!isActive} className='add'>
+                  <button
+                    type='submit'
+                    disabled={!isActive || showWarning}
+                    className='add'
+                  >
                     ADD Expense
                   </button>
 
-                  {!isActive && (
+                  {showWarning && (
                     <p className='warning-text'>
                       You can add up to 8 different categories
                     </p>
+                  )}
+
+                  {!isActive && (
+                    <p className='warning-text'>This category already exists</p>
                   )}
                 </ChartForm>
               </Popup>
@@ -318,6 +326,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
+                resetForm={resetForm}
               >
                 <ChartForm
                   actionHandler={handleCategoryEdit}
@@ -359,6 +368,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
                 setShowAddForm={setShowAddForm}
                 setShowEditForm={setShowEditForm}
                 setShowDeleteForm={setShowDeleteForm}
+                resetForm={resetForm}
               >
                 <div className='chart-form-container'>
                   <h2>DELETE Expense</h2>
