@@ -10,6 +10,6 @@ A simple yet powerful React app for tracking income and expenses.
 4. Run `npm start`. The application will be running at http://localhost:3000.
 
 # Features
-- Add and categorize expense, and edit or delete category
-- View categorized expenses in a Doughnut Chart
-- View income and expenses history in a Line Chart
+- A user can add and categorize expense, and edit or delete category. 
+- The Doughnut Chart displays categorized expenses in different colors, while the Line Chart shows annual and monthly expenses and profits.
+- Income and expenses are differentiated by color, making it easy to get a quick overview of your budget. 
