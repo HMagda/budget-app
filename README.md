@@ -1,6 +1,6 @@
 # Budget App
 
-A simple yet powerful React app for tracking income and expenses.
+A React app for tracking income and expenses made with TypeScript, and SCSS (CSS preprocessor). ChartJS was also incorporated into the application to provide a clear and powerful visual representation.
 
 # Getting Started
 
