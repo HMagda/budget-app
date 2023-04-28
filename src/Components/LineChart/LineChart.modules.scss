@@ -10,6 +10,11 @@
     margin: 1rem;
     min-width: 35rem;
     min-height: 35rem;
+
+    @media only screen and (max-width: 768px) {
+      min-width: auto;
+      min-height: auto;
+    }
   }
 
   .year-btns-container {

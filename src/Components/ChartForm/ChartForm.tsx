@@ -4,9 +4,9 @@ import './ChartForm.modules.scss';
 
 type ChartFormProps = {
   actionHandler: (e: React.FormEvent<HTMLFormElement>) => void;
-  setCost: React.Dispatch<React.SetStateAction<number | string>>;
+  setCost: React.Dispatch<React.SetStateAction<number | null>>;
   header: string;
-  cost: number | string;
+  cost: number | null;
   children: ReactNode;
 };
 
@@ -27,8 +27,10 @@ const ChartForm: React.FC<ChartFormProps> = ({
           id='cost'
           required
           min='1'
-          value={cost}
-          onChange={(e) => setCost(e.target.valueAsNumber)}
+          step='0.01'
+          value={cost || ''}
+          onChange={(e) => setCost(parseFloat(e.target.value))}
+          placeholder="e.g. 10.99"
         ></input>
         <label htmlFor='category'>Category:</label>
         {children}

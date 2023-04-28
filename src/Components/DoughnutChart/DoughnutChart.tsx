@@ -47,7 +47,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
   setRawDoughnutChartData,
   setFormattedDoughnutChartData,
 }) => {
-  const [cost, setCost] = useState<number | string>('');
+  const [cost, setCost] = useState<number | null>(null);
   const [category, setCategory] = useState<string>('');
   const [addedElementId, setAddedElementId] = useState<string>('');
 
@@ -74,7 +74,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
   }
 
   const resetForm = () => {
-    setCost('');
+    setCost(null);
     setCategory('');
   };
 
@@ -84,14 +84,14 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
     const categoryExists = rawDoughnutChartData.some(
       (item) => item.category === e.target.value
     );
-    
+
     categoryExists ? setActive(false) : setActive(true);
   };
 
   const handleCategorySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newElement = {cost, category};
+    const newElement = {cost: cost ? parseFloat(cost.toFixed(2)) : 0, category};
 
     const response = await fetch('http://localhost:5000/categorized-expense', {
       method: 'POST',
@@ -118,7 +118,6 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
 
     resetForm();
     setShowAddForm(false);
-
     setAddedElementId(newId);
   };
 

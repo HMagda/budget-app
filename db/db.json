@@ -24,6 +24,11 @@
       "cost": 5445,
       "category": "presents",
       "id": 10
+    },
+    {
+      "cost": 1000.99,
+      "category": "aaa",
+      "id": 11
     }
   ],
   "monthly-income": [
