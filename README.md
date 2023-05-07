@@ -1,6 +1,6 @@
 # Budget App
 
-A React app for tracking income and expenses made with TypeScript, and SCSS (CSS preprocessor). ChartJS was also incorporated into the application to provide a clear and powerful visual representation.
+A React app for tracking income and expenses made with TypeScript, and SCSS (CSS preprocessor). ChartJS was also used to provide a clear and powerful visual representation in Line and Doughnut Charts. The app has been tested using Jest Testing Framework and React Testing Library.
 
 # Getting Started
 
