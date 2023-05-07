@@ -121,3 +121,5 @@ export const updateChart2 = (
       console.log(err);
     });
 };
+
+export const yearArr = [2021, 2022, 2023];

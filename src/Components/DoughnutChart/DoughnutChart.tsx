@@ -259,6 +259,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
               className='chart-btn + add'
               type='button'
               onClick={displayAddForm}
+              aria-label="Add"
             >
               <RiAddLine />
             </button>
@@ -266,6 +267,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
               className='chart-btn + edit'
               type='button'
               onClick={displayEditForm}
+              aria-label="Edit"
             >
               <RiEdit2Line />
             </button>
@@ -273,6 +275,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
               className='chart-btn + delete'
               type='button'
               onClick={displayDeleteForm}
+              aria-label="Delete"
             >
               <RiDeleteBinLine />
             </button>
@@ -370,7 +373,7 @@ const DoughnutChart: React.FC<DoughnutChartProps> = ({
                 resetForm={resetForm}
               >
                 <div className='chart-form-container'>
-                  <h2>DELETE Expense</h2>
+                  <h2>DELETE Category</h2>
                   <form onSubmit={handleCategoryDelete}>
                     <label htmlFor='category'>Category:</label>
                     <select

@@ -3,7 +3,7 @@
     {
       "cost": 444,
       "category": "clothes",
-      "id": 1
+      "id": 111
     },
     {
       "cost": 444,
@@ -24,11 +24,6 @@
       "cost": 5445,
       "category": "presents",
       "id": 10
-    },
-    {
-      "cost": 1000.99,
-      "category": "aaa",
-      "id": 11
     }
   ],
   "monthly-income": [

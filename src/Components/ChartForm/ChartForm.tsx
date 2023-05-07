@@ -20,7 +20,7 @@ const ChartForm: React.FC<ChartFormProps> = ({
   return (
     <div className='chart-form-container'>
       <h2>{header}</h2>
-      <form onSubmit={actionHandler}>
+      <form onSubmit={actionHandler} data-testid="chart-form">
         <label htmlFor='cost'>Cost:</label>
         <input
           type='number'

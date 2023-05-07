@@ -53,10 +53,12 @@ const SummaryCard: React.FC = () => {
     if (filteredItems.length === 0) {
       return 0;
     }
+
     const sum = filteredItems.reduce(
       (accumulator, current) => accumulator + current[key],
       0
     );
+  
     return sum;
   };
 
@@ -69,6 +71,7 @@ const SummaryCard: React.FC = () => {
           value={selectedYear}
           onChange={handleYearChange}
           className='year-select'
+          data-testid='year-select'
         >
           {allYearsArr &&
             allYearsArr.map((year, i) => {
@@ -85,8 +88,8 @@ const SummaryCard: React.FC = () => {
         <h2>Expense</h2>
       </div>
       <div className='detail-info'>
-        <h2>${calculateSum(monthlyIncome, 'sumIncome')}</h2>
-        <h2>${calculateSum(monthlyExpenses, 'sumExpense')}</h2>
+        <h2 data-testid='income-sum'>${calculateSum(monthlyIncome, 'sumIncome')}</h2>
+        <h2 data-testid='expense-sum'>${calculateSum(monthlyExpenses, 'sumExpense')}</h2>
       </div>
     </div>
   );

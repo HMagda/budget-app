@@ -29,7 +29,7 @@ const Popup: React.FC<PopupProps> = ({
     <div className='popup'>
       <div className='popup-inner'>
         {children}
-        <button className='popup-btn-close' onClick={closePopup}>
+        <button className='popup-btn-close' onClick={closePopup} aria-label="close">
           <RiCloseLine />
         </button>
       </div>

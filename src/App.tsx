@@ -1,19 +1,13 @@
-import React, {
-  useEffect,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction} from 'react';
 import uuid from 'react-uuid';
 import 'normalize.css';
 
 import './styles/global.scss';
-import {GraphStyle, updateChart, updateChart2} from './utils';
+import {GraphStyle, updateChart, updateChart2, yearArr} from './utils';
 import SummaryCard from './Components/SummaryCard/SummaryCard';
 import DoughnutChart from './Components/DoughnutChart/DoughnutChart';
 import LineChart from './Components/LineChart/LineChart';
 
-const yearArr = [2021, 2022, 2023];
 const currentYear = new Date().getFullYear();
 
 const App = () => {
@@ -85,7 +79,9 @@ const App = () => {
       <div className='wrapper'>
         <SummaryCard />
         <div>
-          {formattedDoughnutChartData && (
+          {!formattedDoughnutChartData ? (
+            <h1 data-testid='dougnut-chart-loading'>Loading...</h1>
+          ) : (
             <DoughnutChart
               setRawDoughnutChartData={setRawDoughnutChartData}
               setFormattedDoughnutChartData={
@@ -102,7 +98,9 @@ const App = () => {
           )}
         </div>
         <div>
-          {rawLineChartData && (
+          {!formattedLineChartData ? (
+            <h1 data-testid='line-chart-loading'>Loading...</h1>
+          ) : (
             <LineChart
               formattedLineChartData={
                 formattedLineChartData ?? {
