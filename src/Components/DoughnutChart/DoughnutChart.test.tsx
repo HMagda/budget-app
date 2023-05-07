@@ -17,12 +17,10 @@ const mockFormattedDoughnutChartData = {
   ],
 };
 
-// jest.mock('react-chartjs-2', () => ({
-//   Doughnut: () => null,
-// }));
-
 jest.mock('react-chartjs-2', () => ({
-  Doughnut: (props: any) => <div data-testid="doughnut-chart-mock" {...props} />,
+  Doughnut: (props: any) => (
+    <div data-testid='doughnut-chart-mock' {...props} />
+  ),
 }));
 
 jest.mock('../Popup/Popup', () => (props: any) => <div>{props.children}</div>);
@@ -66,11 +64,7 @@ describe('DoughnutChart', () => {
       expect(screen.getByText('Expenses this month')).toBeInTheDocument();
     });
 
-
     expect(screen.getByTestId('doughnut-chart-mock')).toBeInTheDocument();
-
-
-
   });
 
   it('renders the correct number of chart options buttons', () => {
@@ -82,8 +76,6 @@ describe('DoughnutChart', () => {
         setFormattedDoughnutChartData={() => {}}
       />
     );
-
- 
 
     const chartBtns = screen.getAllByRole('button', {
       name: /(Add|Edit|Delete)/i,
